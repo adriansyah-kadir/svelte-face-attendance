@@ -3,6 +3,7 @@
   import supabase from "$lib/supabase";
 
   function googleSignin() {
+    console.log(location.origin + base);
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

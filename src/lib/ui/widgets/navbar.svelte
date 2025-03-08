@@ -6,6 +6,7 @@
   import Avatar from "./Avatar.svelte";
   import session, { type SessionValue } from "$lib/stores/session";
   import { page } from "$app/state";
+  import { base } from "$app/paths";
 
   const current_path = $derived(page.url.pathname);
   const props: { class?: string } = $props();
@@ -16,7 +17,7 @@
 <div class={["navbar bg-base-100 shadow-sm px-5", props.class]}>
   <div class="navbar-start">
     <!-- {@render mobile_navigation()} -->
-    <a href="/" class="btn btn-ghost text-xl">{PUBLIC_APP_NAME}</a>
+    <a href="{base}/" class="btn btn-ghost text-xl">{PUBLIC_APP_NAME}</a>
   </div>
   {@render desktop_navigation()}
   <div class="navbar-end gap-2">
@@ -31,21 +32,24 @@
   <div class="navbar-center sm:flex hidden">
     <ul class="menu menu-horizontal px-1 gap-2">
       <li>
-        <a href="/live" class:menu-active={current_path.startsWith("/live")}
+        <a
+          href="{base}/live"
+          class:menu-active={current_path.startsWith(base + "/live")}
           >Live Attendance</a
         >
       </li>
       <li>
         <a
-          href="/attendances"
-          class:menu-active={current_path.startsWith("/attendances")}
+          href="{base}/attendances"
+          class:menu-active={current_path.startsWith(base + "/attendances")}
           >Attendances</a
         >
       </li>
       <li>
         <a
-          href="/members"
-          class:menu-active={current_path.startsWith("/members")}>Members</a
+          href="{base}/members"
+          class:menu-active={current_path.startsWith(base + "/members")}
+          >Members</a
         >
       </li>
     </ul>
@@ -73,11 +77,11 @@
         <span class="loading loading-spinner"></span>
       </button>
     {:then profile}
-      <a href="/profile">
+      <a href="{base}/profile">
         <Avatar src={getPublicURLFormFullPath(profile?.data?.picture)} />
       </a>
     {/await}
   {:else}
-    <a class="btn btn-primary font-normal" href="/signin">Login</a>
+    <a class="btn btn-primary font-normal" href="{base}/signin">Login</a>
   {/if}
 {/snippet}
