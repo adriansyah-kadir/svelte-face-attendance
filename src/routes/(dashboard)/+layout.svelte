@@ -1,0 +1,20 @@
+<script lang="ts">
+  import Dock from "$lib/ui/widgets/Dock.svelte";
+  import Navbar from "$lib/ui/widgets/navbar.svelte";
+
+  const { children } = $props();
+</script>
+
+<Navbar class="sticky top-0 z-[9999]" />
+{@render children()}
+<Dock />
+
+<style>
+  :global(body) {
+    min-height: 100vh;
+    background-color: #ff9d00;
+    background-image: url("data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIHZpZXdCb3g9JzAgMCAxNjAwIDgwMCc+PGcgc3Ryb2tlPScjMDAwJyBzdHJva2Utd2lkdGg9JzY2LjcnIHN0cm9rZS1vcGFjaXR5PScwLjA1JyA+PGNpcmNsZSBmaWxsPScjZmY5ZDAwJyBjeD0nMCcgY3k9JzAnIHI9JzE4MDAnLz48Y2lyY2xlIGZpbGw9JyNmYjhkMTcnIGN4PScwJyBjeT0nMCcgcj0nMTcwMCcvPjxjaXJjbGUgZmlsbD0nI2Y0N2QyNCcgY3g9JzAnIGN5PScwJyByPScxNjAwJy8+PGNpcmNsZSBmaWxsPScjZWQ2ZTJkJyBjeD0nMCcgY3k9JzAnIHI9JzE1MDAnLz48Y2lyY2xlIGZpbGw9JyNlMzVmMzQnIGN4PScwJyBjeT0nMCcgcj0nMTQwMCcvPjxjaXJjbGUgZmlsbD0nI2Q4NTIzOScgY3g9JzAnIGN5PScwJyByPScxMzAwJy8+PGNpcmNsZSBmaWxsPScjY2M0NTNlJyBjeD0nMCcgY3k9JzAnIHI9JzEyMDAnLz48Y2lyY2xlIGZpbGw9JyNiZTM5NDEnIGN4PScwJyBjeT0nMCcgcj0nMTEwMCcvPjxjaXJjbGUgZmlsbD0nI2IwMmY0MycgY3g9JzAnIGN5PScwJyByPScxMDAwJy8+PGNpcmNsZSBmaWxsPScjYTAyNjQ0JyBjeD0nMCcgY3k9JzAnIHI9JzkwMCcvPjxjaXJjbGUgZmlsbD0nIzkwMWU0NCcgY3g9JzAnIGN5PScwJyByPSc4MDAnLz48Y2lyY2xlIGZpbGw9JyM4MDE4NDMnIGN4PScwJyBjeT0nMCcgcj0nNzAwJy8+PGNpcmNsZSBmaWxsPScjNmYxMzQxJyBjeD0nMCcgY3k9JzAnIHI9JzYwMCcvPjxjaXJjbGUgZmlsbD0nIzVlMGYzZCcgY3g9JzAnIGN5PScwJyByPSc1MDAnLz48Y2lyY2xlIGZpbGw9JyM0ZTBjMzgnIGN4PScwJyBjeT0nMCcgcj0nNDAwJy8+PGNpcmNsZSBmaWxsPScjM2UwOTMzJyBjeD0nMCcgY3k9JzAnIHI9JzMwMCcvPjxjaXJjbGUgZmlsbD0nIzJlMDYyYycgY3g9JzAnIGN5PScwJyByPScyMDAnLz48Y2lyY2xlIGZpbGw9JyMyMTAwMjQnIGN4PScwJyBjeT0nMCcgcj0nMTAwJy8+PC9nPjwvc3ZnPg==");
+    background-attachment: fixed;
+    background-size: cover;
+  }
+</style>
