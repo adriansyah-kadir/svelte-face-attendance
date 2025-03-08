@@ -30,7 +30,7 @@
   </a>
 
   <a
-    class:dock-active={current_path.startsWith(base + "members")}
+    class:dock-active={current_path.startsWith(base + "/members")}
     href="{base}/members"
   >
     <UsersIcon />
