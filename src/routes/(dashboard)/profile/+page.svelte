@@ -9,11 +9,12 @@
   import FacesView from "./faces-view.svelte";
   import { goto } from "$app/navigation";
   import supabase from "$lib/supabase";
+  import { base } from "$app/paths";
 
   let profile: Tables<"profiles"> | undefined | null = $state(undefined);
 
   $effect(() => {
-    if ($session === null) goto("/signin");
+    if ($session === null) goto(base + "/signin");
     else if ($session) {
       getProfile($session.user.id).then(
         (data) => {
