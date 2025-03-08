@@ -1,11 +1,12 @@
 <script>
+  import { base } from "$app/paths";
   import supabase from "$lib/supabase";
 
   function googleSignin() {
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: location.origin,
+        redirectTo: location.origin + base,
       },
     });
   }
