@@ -25,7 +25,14 @@ async function connect(this: RTCPeerConnection, server: string, absen_type: stri
 export function CreateWebRTC(config: Config) {
   const pc = WebRTC({
     webrtcConfig: {
-      iceServers: [{ urls: ["stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19305"] }]
+      iceServers: [
+        { urls: ["stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19305"] },
+        {
+          urls: "relay1.expressturn.com:3478",
+          username: "efYDQRDBLZG2XIHJE3",
+          credential: "S9G2fDPfhpGh5ZCD"
+        }
+      ]
     },
     async onNegotationNeeded() {
       const detections = this.createDataChannel("detections");
