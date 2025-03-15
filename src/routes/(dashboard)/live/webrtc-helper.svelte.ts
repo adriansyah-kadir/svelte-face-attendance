@@ -1,3 +1,4 @@
+import { isIPv4 } from "$lib";
 import { toast } from "$lib/ui/widgets/Toaster.svelte";
 import WebRTC from "$lib/webrtc";
 import ky from "ky";
@@ -46,7 +47,7 @@ export function CreateWebRTC(config: Config) {
       await this.setLocalDescription(offer);
     },
     async onIceCandidate(ev) {
-      if (ev.candidate?.type === "relay" || ev.candidate?.type === "srflx" || ev.candidate?.type === "prflx") {
+      if (ev.candidate && (ev.candidate?.type === "relay" || ev.candidate?.type === "srflx" || ev.candidate?.type === "prflx") && ev.candidate.relatedAddress && isIPv4(ev.candidate.relatedAddress)) {
         this.onicecandidate = null
         connect.call(this, config.server, config.attendance_type).catch(err => {
           console.error(err);

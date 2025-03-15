@@ -171,3 +171,8 @@ export async function displayErrorMessage(err: any, title?: string, id?: string)
     });
   }
 }
+
+export function isIPv4(text: string) {
+  const ipPattern = /\d+\.\d+\.\d+\.\d+/;  // Format IPv4: xxx.xxx.xxx.xxx
+  return ipPattern.test(text);
+}
