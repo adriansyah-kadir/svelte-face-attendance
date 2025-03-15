@@ -24,6 +24,9 @@ async function connect(this: RTCPeerConnection, server: string, absen_type: stri
 
 export function CreateWebRTC(config: Config) {
   const pc = WebRTC({
+    webrtcConfig: {
+      iceServers: [{ urls: ['stun.l.google.com:19302', 'stun:stun1.l.google.com:19302', 'stun:stun3.l.google.com:19302'] }]
+    },
     async onNegotationNeeded() {
       const detections = this.createDataChannel("detections");
       const verifications = this.createDataChannel("verifications");
