@@ -10,8 +10,6 @@
 
   const current_path = $derived(page.url.pathname);
   const props: { class?: string } = $props();
-
-  $inspect(current_path);
 </script>
 
 <div class={["navbar bg-base-100 shadow-sm px-5", props.class]}>

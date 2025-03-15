@@ -4,7 +4,7 @@ type Config = {
   webrtcConfig?: RTCConfiguration;
   onIceGatheringStateChange?: (this: RTCPeerConnection) => void;
   onIceConnectionStateChange?: (this: RTCPeerConnection) => void;
-  onIceCandidate?: (ev: RTCPeerConnectionIceEvent) => void;
+  onIceCandidate?: (this: RTCPeerConnection, ev: RTCPeerConnectionIceEvent) => void;
   onIceCandidateError?: (ev: RTCPeerConnectionIceErrorEvent) => void;
   onTrack?: (ev: RTCTrackEvent) => void;
   onDataChannel?: (ev: RTCDataChannelEvent) => void;
@@ -26,8 +26,10 @@ export default function WebRTC(config: Config) {
       "iceconnectionstatechange",
       config.onIceConnectionStateChange
     );
+  // if (config.onIceCandidate)
+  //   pc.addEventListener("icecandidate", config.onIceCandidate);
   if (config.onIceCandidate)
-    pc.addEventListener("icecandidate", config.onIceCandidate);
+    pc.onicecandidate = config.onIceCandidate;
   if (config.onIceCandidateError)
     pc.addEventListener("icecandidateerror", config.onIceCandidateError);
   if (config.onTrack) pc.addEventListener("track", config.onTrack);

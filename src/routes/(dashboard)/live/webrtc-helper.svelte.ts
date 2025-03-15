@@ -6,7 +6,7 @@ type Config = {
   onDetectionsMessage: RTCDataChannel["onmessage"];
   onVerificationsMessage: RTCDataChannel["onmessage"];
   server: string;
-  absen_type: string;
+  attendance_type: string;
 };
 
 async function connect(this: RTCPeerConnection, server: string, absen_type: string) {
@@ -28,11 +28,12 @@ export function CreateWebRTC(config: Config) {
       iceServers: [
         { urls: ["stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19305"] },
         {
-          urls: "relay1.expressturn.com:3478",
+          urls: "turn:relay1.expressturn.com:3478",
           username: "efYDQRDBLZG2XIHJE3",
           credential: "S9G2fDPfhpGh5ZCD"
         }
-      ]
+      ],
+      iceTransportPolicy: "all",
     },
     async onNegotationNeeded() {
       const detections = this.createDataChannel("detections");
@@ -44,22 +45,25 @@ export function CreateWebRTC(config: Config) {
       const offer = await this.createOffer();
       await this.setLocalDescription(offer);
     },
-    async onIceGatheringStateChange() {
-      toast(`initializing`, {
-        id: "streaming-status",
-        description: "iceGatheringState: " + this.iceGatheringState,
-        type: "loading",
-      });
-      if (this.iceGatheringState === "complete") {
-        connect.call(this, config.server, config.absen_type).catch((err) => {
+    async onIceCandidate(ev) {
+      if (ev.candidate?.type === "relay" || ev.candidate?.type === "srflx" || ev.candidate?.type === "prflx") {
+        this.onicecandidate = null
+        connect.call(this, config.server, config.attendance_type).catch(err => {
           console.error(err);
           toast(`Error`, {
             id: "streaming-status",
             description: "gagal koneksi: " + config.server,
             type: "error",
           });
-        });
+        })
       }
+    },
+    async onIceGatheringStateChange() {
+      toast(`initializing`, {
+        id: "streaming-status",
+        description: "iceGatheringState: " + this.iceGatheringState,
+        type: "loading",
+      });
     },
     async onConnectionStateChange() {
       switch (this.connectionState) {
