@@ -6,12 +6,17 @@ type Config = {
   onDetectionsMessage: RTCDataChannel["onmessage"];
   onVerificationsMessage: RTCDataChannel["onmessage"];
   server: string;
+  absen_type: string;
 };
 
-async function connect(this: RTCPeerConnection, server: string) {
+async function connect(this: RTCPeerConnection, server: string, absen_type: string) {
   const answer = await ky
     .post(server, {
-      json: this.localDescription,
+      json: {
+        sdp: this.localDescription?.sdp,
+        type: this.localDescription?.type,
+        absen_type,
+      },
     })
     .json<RTCSessionDescription>();
   this.setRemoteDescription(answer);
@@ -36,11 +41,11 @@ export function CreateWebRTC(config: Config) {
         type: "loading",
       });
       if (this.iceGatheringState === "complete") {
-        connect.call(this, config.server).catch((err) => {
+        connect.call(this, config.server, config.absen_type).catch((err) => {
           console.error(err);
           toast(`Error`, {
             id: "streaming-status",
-            description: "server offline: " + config.server,
+            description: "gagal koneksi: " + config.server,
             type: "error",
           });
         });

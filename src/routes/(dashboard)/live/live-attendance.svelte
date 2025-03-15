@@ -19,8 +19,14 @@
   let {
     ipwebcam,
     cameraId,
+    absen_type,
     open = $bindable(),
-  }: { ipwebcam?: string; cameraId?: string; open?: boolean } = $props();
+  }: {
+    ipwebcam?: string;
+    cameraId?: string;
+    open?: boolean;
+    absen_type?: string;
+  } = $props();
 
   let webrtc: RTCPeerConnection | undefined = $state();
   let video: HTMLVideoElement | undefined = $state();
@@ -53,6 +59,7 @@
       onDetectionsMessage: untrack(() => detections.feed),
       onVerificationsMessage: untrack(() => verifications.feed),
       server: $backend_server + "/offer",
+      absen_type: absen_type ?? "in",
     });
 
     return () => {

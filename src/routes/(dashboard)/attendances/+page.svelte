@@ -67,6 +67,7 @@
             <th>Profile</th>
             <th>Image</th>
             <th>Percentage</th>
+            <th>Type</th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +91,9 @@
                   getany(attendance, ["data", "similarity"], 0)! * 100
                 ).toFixed(2)}%</td
               >
+              <td>
+                {getany(attendance, ["data", "absen_type"], "in")!}
+              </td>
             </tr>
           {:else}
             <tr>

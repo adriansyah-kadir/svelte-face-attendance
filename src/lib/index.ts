@@ -150,20 +150,23 @@ export function storeLoaded<T>(
   });
 }
 
-export async function displayErrorMessage(err: any, title?: string) {
+export async function displayErrorMessage(err: any, title?: string, id?: string) {
   if (err instanceof HTTPError) {
     const json = await err.response.json<{ detail: string }>();
     toast(title ?? err.name, {
+      id,
       description: json.detail,
       type: "error",
     });
   } else if (err instanceof Error) {
     toast(title ?? err.name, {
+      id,
       description: err.message,
       type: "error",
     });
   } else {
     toast(title ?? String(err), {
+      id,
       type: "error",
     });
   }

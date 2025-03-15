@@ -4,6 +4,7 @@
   import LiveAttendance from "./live-attendance.svelte";
 
   let cameraId: string | undefined = $state();
+  let absen_type = $state("in");
   let open_streaming = $state(false);
   const cameras = createMediaDevicesStore({ video: true });
 
@@ -13,7 +14,7 @@
 </script>
 
 {#if open_streaming}
-  <LiveAttendance {cameraId} bind:open={open_streaming} />
+  <LiveAttendance {cameraId} {absen_type} bind:open={open_streaming} />
 {:else}
   <div class="w-full h-full flex items-center justify-center p-5">
     <div class="card bg-base-100 w-96 shadow-sm">
@@ -30,6 +31,13 @@
           {:else}
             <span class="loading loading-dots"></span>
           {/if}
+        </label>
+        <label class="select">
+          <span class="label">Type</span>
+          <select bind:value={absen_type}>
+            <option value="in">In</option>
+            <option value="out">Out</option>
+          </select>
         </label>
         <div class="card-actions justify-end">
           <button
